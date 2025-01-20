@@ -1,6 +1,6 @@
 <?php
 
-require_once 'env.php';
+require 'env.php';
 
 function conexion() {
     try {
