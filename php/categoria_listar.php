@@ -4,16 +4,16 @@ $inicio = ($pagina > 0) ? (($pagina * $registros) - $registros) : 0;
 $tabla = "";
 
 if (isset($busqueda) && $busqueda != "") {
-    $consulta_datos = "SELECT * FROM usuario WHERE ((id_usuario != '" . $_SESSION['id'] . "') AND 
-        (usuario_nombre LIKE '%$busqueda%' OR usuario_apellido LIKE '%$busqueda%' OR usuario_usuario LIKE '%$busqueda%' OR usuario_email LIKE '%$busqueda%')  
-        ) ORDER BY usuario_nombre ASC LIMIT $inicio, $registros";
-    $consulta_total = "SELECT COUNT(id_usuario) FROM usuario WHERE ((id_usuario != '" . $_SESSION['id'] . "') AND 
-        (usuario_nombre LIKE '%$busqueda%' OR usuario_apellido LIKE '%$busqueda%' OR usuario_usuario LIKE '%$busqueda%' OR usuario_email LIKE '%$busqueda%')  
-        )";
+    $consulta_datos = "SELECT * FROM categoria WHERE 
+        (categoria_nombre LIKE '%$busqueda%' OR categoria_ubicacion LIKE '%$busqueda%')  
+        ORDER BY categoria_nombre ASC LIMIT $inicio, $registros";
+    $consulta_total = "SELECT COUNT(id_categoria) FROM categoria WHERE  
+        (categoria_nombre LIKE '%$busqueda%' OR categoria_ubicacion LIKE '%$busqueda%')";
 } else {
-    $consulta_datos = "SELECT * FROM usuario WHERE id_usuario != '" . $_SESSION['id'] . "' ORDER BY usuario_nombre ASC LIMIT $inicio, $registros";
-    $consulta_total = "SELECT COUNT(id_usuario) FROM usuario WHERE id_usuario != '" . $_SESSION['id'] . "'";
+    $consulta_datos = "SELECT * FROM categoria ORDER BY categoria_nombre ASC LIMIT $inicio, $registros";
+    $consulta_total = "SELECT COUNT(id_categoria) FROM categoria";
 }
+
 
 $conexion = conexion();
 $datos = $conexion->query($consulta_datos);
@@ -30,27 +30,25 @@ $tabla .= '<div class="table-container">
                 <tr class="has-text-centered">
                     <th>#</th>
                     <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Usuario</th>
-                    <th>Email</th>
+                    <th>Ubicación</th>
+                    <th>Productos</th>
                     <th colspan="2">Opciones</th>
                 </tr>
             </thead>
             <tbody>';
 
 if ($totales >= 1 && $pagina <= $Npaginas) {
-    $i = 1;
+    $i = 0;
     $contador = $inicio + 1;
     $pag_inicio = $inicio + 1;
     foreach ($datos as $dato) {
         $tabla .= '<tr class="has-text-centered">
                     <td>' . $contador . '</td>
-                    <td>' . $dato['usuario_nombre'] . '</td>
-                    <td>' . $dato['usuario_apellido'] . '</td>
-                    <td>' . $dato['usuario_usuario'] . '</td>
-                    <td>' . $dato['usuario_email'] . '</td>
-                    <td><a href="index.php?vista=user_update&id_up=' . $dato['id_usuario'] . '" class="button is-info is-rounded is-small">Editar</a></td>
-                    <td><a href="'.$url.$pagina.'&user_id_del=' . $dato['id_usuario'] . '" class="button is-danger is-rounded is-small">Eliminar</a></td>
+                    <td>' . $dato['categoria_nombre'] . '</td>
+                    <td>' . $dato['categoria_ubicacion'] . '</td>
+                    <td><a href="index.php?vista=product_category&category_list='.$dato['categoria_nombre'].'" class="button is-link is-rounded is-small">Ver Productos</a></td>
+                    <td><a href="index.php?vista=category_update&id_categoria_up=' . $dato['id_categoria'] . '" class="button is-info is-rounded is-small">Editar</a></td>
+                    <td><a href="'.$url.$pagina.'&category_id_del=' . $dato['id_categoria'] . '" class="button is-danger is-rounded is-small">Eliminar</a></td>
                     
                 </tr>';
         $contador++;
@@ -79,7 +77,7 @@ if ($totales >= 1 && $pagina <= $Npaginas) {
 $tabla .= '</tbody></table></div>';
 
 if ($totales >= 1 && $pagina <= $Npaginas) {
-    $tabla .= '<p class="has-text-right">Mostrando Usuarios <strong>' . $pag_inicio . '</strong> al <strong>' . $pag_final . '</strong> de un <strong>total de ' . $totales . '</strong></p>';
+    $tabla .= '<p class="has-text-right">Mostrando categorias <strong>' . $pag_inicio . '</strong> al <strong>' . $pag_final . '</strong> de un <strong>total de ' . $totales . '</strong></p>';
     
 
 }
