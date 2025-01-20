@@ -9,6 +9,13 @@
     <?php
         require_once "./php/main.php";
 
+        //Codigo para eliminar usuario
+        if(isset($_GET['user_id_del'])){
+            require_once "./php/usuario_eliminar.php";
+
+
+        }
+
         if(!isset($_GET['page'])){
             $pagina=1;
         }else{

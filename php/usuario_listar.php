@@ -49,8 +49,8 @@ if ($totales >= 1 && $pagina <= $Npaginas) {
                     <td>' . $dato['usuario_apellido'] . '</td>
                     <td>' . $dato['usuario_usuario'] . '</td>
                     <td>' . $dato['usuario_email'] . '</td>
-                    <td><a href="index.php?vista=user_edit&id_up=' . $dato['id_usuario'] . '" class="button is-info is-rounded is-small">Editar</a></td>
-                    <td><a href="'.$url.$pagina.'&id_del=' . $dato['id_usuario'] . '" class="button is-danger is-rounded is-small">Eliminar</a></td>
+                    <td><a href="index.php?vista=user_update&id_up=' . $dato['id_usuario'] . '" class="button is-info is-rounded is-small">Editar</a></td>
+                    <td><a href="'.$url.$pagina.'&user_id_del=' . $dato['id_usuario'] . '" class="button is-danger is-rounded is-small">Eliminar</a></td>
                     
                 </tr>';
         $contador++;

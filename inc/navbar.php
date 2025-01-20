@@ -38,13 +38,13 @@
             </a>
 
             <div class="navbar-dropdown">
-                <a class="navbar-item">
+                <a class="navbar-item " href="index.php?vista=category_new">
                     Nueva
                 </a>
-                <a class="navbar-item">
+                <a class="navbar-item " href="index.php?vista=category_list">
                     Lista
                 </a>
-                <a class="navbar-item">
+                <a class="navbar-item " href="index.php?vista=category_search">
                     Buscar
                 </a>
             </div>
@@ -56,16 +56,16 @@
             </a>
 
             <div class="navbar-dropdown">
-                <a class="navbar-item">
+                <a class="navbar-item" href="index.php?vista=product_new">
                     Nuevo
                 </a>
-                <a class="navbar-item">
+                <a class="navbar-item" href="index.php?vista=product_list">
                     Lista
                 </a>
                 <a class="navbar-item">
                     Categoria
                 </a>
-                <a class="navbar-item">
+                <a class="navbar-item" href="index.php?vista=product_search">
                     Buscar
                 </a>
             </div>
@@ -78,7 +78,7 @@
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
-          <a class="button is-primary is-rounded" >
+          <a href="index.php?vista=user_update&id_up=<?php echo $_SESSION['id']; ?> " class="button is-primary is-rounded" >
             Mi cuenta
           </a>
           <a href="index.php?vista=logout" class="button is-link is-rounded ">

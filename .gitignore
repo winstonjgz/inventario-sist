@@ -1,0 +1,11 @@
+# Ignorar el archivo de configuración
+env.php
+
+# Ignorar directorios específicos
+vendor/
+node_modules/
+
+# Ignorar archivos temporales del sistema
+*.log
+*.tmp
+.DS_Store

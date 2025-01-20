@@ -1,10 +1,19 @@
 <?php
 
+require_once 'env.php';
 
-    function conexion(){
-        $pdo = new PDO('mysql:host=localhost;dbname=inventario','dev_invent','4Sv1Tv-16vR9*3@y');
+function conexion() {
+    try {
+        $dsn = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME;
+        $pdo = new PDO($dsn, DB_USER, DB_PASSWORD, [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, // Activa el modo de errores
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, // Configura el modo de fetch
+        ]);
         return $pdo;
+    } catch (PDOException $e) {
+        die('Error en la conexión: ' . $e->getMessage()); // Manejo básico de errores
     }
+}
 
     // Funcion para verificar datos
 
