@@ -77,7 +77,7 @@ function renombrar_fotos($nombre_fotos){
     $nombre_fotos = str_ireplace("$","_",$nombre_fotos);
     $nombre_fotos = str_ireplace(".","_",$nombre_fotos);
     $nombre_fotos = str_ireplace(",","_",$nombre_fotos);
-    $nombre_fotos."_".rand(0,100);
+    $nombre_fotos = $nombre_fotos."_".rand(0,100);
     return $nombre_fotos;
 
 
