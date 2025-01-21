@@ -61,21 +61,21 @@
 
             <div class="column">
                 <div class="control">
-                    <label for="">Categoria</label>
+                    <label for="">producto</label>
                     <br>
                     <div class="select is-rounded">
-                        <select name="producto_categoria">
-                            <option value="<?php echo $datos_producto['fk_categoria_id'] ?>" selected=""><?php echo $datos_producto['categoria_nombre'] ?></option>
+                        <select name="producto_producto">
+                            <option value="<?php echo $datos_producto['fk_producto_id'] ?>" selected=""><?php echo $datos_producto['producto_nombre'] ?></option>
                             <?php
-                            $categorias = conexion()->query('Select * from categoria');
+                            $productos = conexion()->query('Select * from producto');
 
-                            if ($categorias->rowCount() > 0) {
-                                $categorias = $categorias->fetchAll();
-                                foreach ($categorias as $categoria) {
-                                    echo '<option value="' . $categoria['id_categoria'] . '">' . $categoria['categoria_nombre'] . '</option>';
+                            if ($productos->rowCount() > 0) {
+                                $productos = $productos->fetchAll();
+                                foreach ($productos as $producto) {
+                                    echo '<option value="' . $producto['id_producto'] . '">' . $producto['producto_nombre'] . '</option>';
                                 }
                             }
-                            $categorias = null;
+                            $productos = null;
                             ?>
 
                         </select>

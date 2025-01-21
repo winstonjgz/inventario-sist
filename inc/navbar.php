@@ -62,7 +62,7 @@
                 <a class="navbar-item" href="index.php?vista=product_list">
                     Lista
                 </a>
-                <a class="navbar-item href="index.php?vista=product_list_category">
+                <a class="navbar-item" href="index.php?vista=product_category">
                     Por Categorias
                 </a>
                 <a class="navbar-item" href="index.php?vista=product_search">
