@@ -70,12 +70,12 @@
         </div>
 
         <div class="columns">
-        <div class="column">
-            
+            <div class="column">
+
                 <label for="">Imagen</label>
                 <div class="file is-small has-name">
                     <label class="file-label">
-                            <input class="file-input" type="file" name="producto_imagen" accept=".jpg, .png, .jpeg" required>
+                        <input class="file-input" type="file" name="producto_imagen" accept=".jpg, .png, .jpeg" required>
                         <span class="file-cta">
                             <span class="file-label">
                                 Seleccionar Imagen
@@ -85,25 +85,19 @@
                             JPG, JPEG, PNG (Max 3MB)
                         </span>
                     </label>
-                    
+
 
                 </div>
             </div>
         </div>
 
 
-</div>
+        <p class="has-text-centered">
+            <button type="submit" class="button is-info is-rounded">
+                Guardar
 
+            </button>
+        </p>
 
-
-
-</div>
-<p class="has-text-centered">
-    <button type="submit" class="button is-info is-rounded">
-        Guardar
-
-    </button>
-</p>
-
-</form>
+    </form>
 </div>
