@@ -1,9 +1,11 @@
-body,
-html {
+body, html {
     height: 100%;
-    width: 100%;
-    background: linear-gradient(135deg, #74ebd5, #b3beec); /* Fondo degradado */
-            color: #333;
+    margin: 0;
+    display: flex;
+    justify-content: center; /* Horizontal */
+    align-items: center;    /* Vertical */
+    background: linear-gradient(135deg, #74ebd5, #b9c3f1); /* Fondo degradado */
+    font-family: 'Nunito', sans-serif;
 }
 
 
@@ -74,7 +76,7 @@ h5.title {
 
 /* Botón */
 .button {
-    
+    width: 100%;
     padding: 10px;
     font-size: 1rem;
     font-weight: 600;

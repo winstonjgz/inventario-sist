@@ -77,6 +77,9 @@
                     <label class="file-label">
                         <input class="file-input" type="file" name="producto_imagen" accept=".jpg, .png, .jpeg" required>
                         <span class="file-cta">
+                            <span class="file-icon">
+                                <i class="fa-solid fa-upload"></i>
+                            </span>
                             <span class="file-label">
                                 Seleccionar Imagen
                             </span>
