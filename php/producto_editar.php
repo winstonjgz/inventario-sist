@@ -2,16 +2,16 @@
 require_once "../inc/session_start.php";
 require_once "main.php";
 
-$id_cat = limpiar_cadena($_POST['id_producto_up']);
+$id_prod = limpiar_cadena($_POST['id_producto_up']);
 
 //Verificar si existe el producto en la base de datos
-$check_producto = conexion()->query('SELECT * FROM producto WHERE id_producto="' . $id_cat . '"');
+$check_producto = conexion()->query('SELECT * FROM producto WHERE id_producto="' . $id_prod . '"');
 
 if ($check_producto->rowCount() <= 0) {
     echo '
     <div class="notification is-danger is-light">
     <strong>¡Ocurrio un error inesperado!</strong><br>
-    producto no existe!
+    El producto no existe!
     </div>
     ';
     exit();
@@ -30,7 +30,7 @@ $producto_precio = limpiar_cadena($_POST['producto_precio']);
 $producto_stock = limpiar_cadena($_POST['producto_stock']);
 $producto_categoria = limpiar_cadena($_POST['producto_categoria']);
 
-if ($nombre_cat == "" || $ubicacion_cat  == "" ) {
+if ($producto_codigo == '' || $producto_nombre == '' || $producto_precio == '' || $producto_stock == '' || $producto_categoria == '') {
     echo '
     <div class="notification is-danger is-light">
     <strong>¡Ocurrio un error inesperado!</strong><br>
@@ -40,9 +40,18 @@ if ($nombre_cat == "" || $ubicacion_cat  == "" ) {
     exit();
 }
 
-
 //Verificar integridad de los datos
-if (verificar_datos("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,40}", $nombre_cat)) {
+if (verificar_datos("[a-zA-Z0-9 ]{1,70}", $producto_codigo)) {
+    echo '
+    <div class="notification is-danger is-light">
+    <strong>¡Ocurrio un error inesperado!</strong><br>
+    Existe un error en la ubicación con el formato requerido!
+    </div>
+    ';
+    exit();
+}
+
+if (verificar_datos("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,40}", $producto_nombre)) {
     echo '
     <div class="notification is-danger is-light">
     <strong>¡Ocurrio un error inesperado!</strong><br>
@@ -52,43 +61,89 @@ if (verificar_datos("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,40}", $nombre_cat)) {
     exit();
 }
 
-if (verificar_datos("[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]{3,50}", $ubicacion_cat)) {
+if (verificar_datos("[0-9.]{1,20}", $producto_precio)) {
     echo '
     <div class="notification is-danger is-light">
     <strong>¡Ocurrio un error inesperado!</strong><br>
-    Existe un error del apellido con el formato requerido!
+    Existe un error del precio con el formato requerido!
     </div>
     ';
     exit();
 }
 
+if (verificar_datos("[0-9.]{1,20}", $producto_stock)) {
+    echo '
+    <div class="notification is-danger is-light">
+    <strong>¡Ocurrio un error inesperado!</strong><br>
+    Existe un error del stock con el formato requerido!
+    </div>
+    ';
+    exit();
+}
 
-// Verificar producto
-if ($nombre_cat != $datos['producto_nombre']) {
-    $check_producto = conexion();
-    $check_producto = $check_producto->query("SELECT producto_nombre FROM producto WHERE producto_nombre = '$nombre_cat'");
-    if ($check_producto->rowCount() > 0) {
+// Verificar codigo
+if ($datos['producto_id'] != $producto_codigo) {
+    $check_codigo = conexion();
+    $check_codigo = $check_codigo->query("SELECT producto_id FROM producto WHERE producto_id = '$producto_codigo'");
+    if ($check_codigo->rowCount() > 0) {
         echo '
         <div class="notification is-danger is-light">
         <strong>¡Ocurrio un error inesperado!</strong><br>
-        El producto esta registrado en la base de datos!
+        El codigo esta registrado en la base de datos!
         Por favor escriba otro!
         </div>
         ';
         exit();
     }
+    $check_codigo = null;
+}
 
+
+
+// Verificar nombre producto
+if ($datos['producto_nombre'] != $producto_nombre) {
+    $check_producto = conexion();
+    $check_producto = $check_producto->query("SELECT producto_nombre FROM producto WHERE producto_nombre = '$producto_nombre'");
+    if ($check_producto->rowCount() > 0) {
+        echo '
+    <div class="notification is-danger is-light">
+    <strong>¡Ocurrio un error inesperado!</strong><br>
+    El producto esta registrado en la base de datos!
+    Por favor escriba otro!
+    </div>
+    ';
+        exit();
+    }
     $check_producto = null;
+}
+
+// Verificar categoria
+if ($datos['fk_categoria_id'] != $producto_categoria) {
+$check_categoria = conexion();
+$check_categoria = $check_categoria->query("SELECT id_categoria FROM categoria WHERE id_categoria = '$producto_categoria'");
+if ($check_categoria->rowCount() <= 0) {
+    echo '
+    <div class="notification is-danger is-light">
+    <strong>¡Ocurrio un error inesperado!</strong><br>
+    La categoria ID no esta registrado en la base de datos!
+    Por favor escriba otro!
+    </div>
+    ';
+    exit();
+}
+$check_categoria = null;
 }
 
 
 //Actualizando datos
-$actualizar_producto = conexion()->prepare('UPDATE producto SET producto_nombre=:nombre, producto_ubicacion=:ubicacion WHERE id_producto=:id');
-
+$actualizar_producto = conexion()->prepare('UPDATE producto  SET producto_id=:prod_cod, producto_nombre=:prod_nom, producto_precio=:prod_prec, producto_stock=:prod_sto, fk_categoria_id=:prod_cat WHERE id_producto=:id');
 $marcadores = [
-    ":nombre" => $nombre_cat,
-    ":ubicacion" => $ubicacion_cat,
-    ":id" => $id_cat,
+    ':prod_cod' => $producto_codigo,
+    ':prod_nom' => $producto_nombre,
+    ':prod_prec' => $producto_precio,
+    ':prod_sto' => $producto_stock,
+    ':prod_cat' => $producto_categoria,
+    ':id' => $id_prod,
 ];
 
 

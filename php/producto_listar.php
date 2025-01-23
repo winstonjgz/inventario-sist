@@ -72,7 +72,7 @@ if ($totales >= 1 && $pagina <= $Npaginas) {
                         <div class="media-right">
                             <div class="field is-grouped">
                                 <p class="control">
-                                    <a href="index.php?vista=product_img&id_producto=' . $dato['id_producto'] . '" class="button is-info is-rounded is-small">Imagen</a>
+                                    <a href="index.php?vista=product_img&id_producto_up=' . $dato['id_producto'] . '" class="button is-info is-rounded is-small">Imagen</a>
                                 </p>
                                 <p class="control">
                                     <a href="index.php?vista=product_update&id_producto_up=' . $dato['id_producto'] . '" class="button is-info is-rounded is-small">Actualizar</a>
